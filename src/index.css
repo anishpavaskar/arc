@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --bg: #0A0A0A;
+  --surface: #1A1A1A;
+  --gold: #C9A84C;
+  --gold-muted: #C9A84C99;
+  --gold-tint: rgba(201, 168, 76, 0.15);
+  --text-primary: #F5F5F0;
+  --text-secondary: #888888;
+  --border-inactive: #333333;
+
+  --font-body: 'DM Sans', sans-serif;
+  --font-label: 'Instrument Sans', sans-serif;
+
+  --page-padding: 20px;
+  --card-padding: 16px;
+  --card-gap: 12px;
+  --section-gap: 24px;
+  --nav-height: 56px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+}
