@@ -22,7 +22,7 @@ export default function App() {
           </svg>
         </a>
         <a
-          href="/Arc_Ethos.pdf"
+          href="/ethos.html"
           target="_blank"
           rel="noopener noreferrer"
           style={{ fontFamily: 'var(--font-label)', fontSize: 12, color: 'rgba(201,168,76,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em', textDecoration: 'none' }}
