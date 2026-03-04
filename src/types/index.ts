@@ -6,6 +6,7 @@ export interface DomainData {
 export interface DayData {
   date: string;          // "YYYY-MM-DD"
   intent: string;
+  committed: boolean;    // true = intent locked in, task inputs frozen
   body: DomainData;
   build: DomainData;
   exposure: DomainData;

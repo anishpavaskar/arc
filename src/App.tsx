@@ -8,7 +8,7 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>('today');
 
   return (
-    <div style={{ width: '100%', maxWidth: 480, minHeight: '100dvh', position: 'relative', paddingTop: 'calc(env(safe-area-inset-top, 20px) + 16px)', paddingBottom: 'calc(var(--nav-height) + env(safe-area-inset-bottom, 0px))' }}>
+    <div style={{ width: '100%', maxWidth: 480, minHeight: '100dvh', position: 'relative', paddingTop: 'calc(env(safe-area-inset-top, 10px) + 8px)', paddingBottom: 'calc(var(--nav-height) + env(safe-area-inset-bottom, 0px))' }}>
       {screen === 'today' ? <TodayScreen /> : <VelocityScreen />}
       <div style={{ textAlign: 'center', padding: '16px 0 8px' }}>
         <a

@@ -24,6 +24,7 @@ export function defaultDay(dateStr: string): DayData {
   return {
     date: dateStr,
     intent: '',
+    committed: false,
     body: { task: '', done: false },
     build: { task: '', done: false },
     exposure: { task: '', done: false },

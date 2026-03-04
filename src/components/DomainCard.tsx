@@ -11,9 +11,10 @@ interface DomainCardProps {
   onComplete: (done: boolean) => void;
   disabled: boolean;
   drifting: boolean;
+  committed: boolean;
 }
 
-export default function DomainCard({ domainConfig, data, onChange, onComplete, disabled, drifting }: DomainCardProps) {
+export default function DomainCard({ domainConfig, data, onChange, onComplete, disabled, drifting, committed }: DomainCardProps) {
   const swipeRef = useSwipe({
     onComplete,
     disabled,
@@ -76,7 +77,7 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
           type="text"
           value={data.task}
           onChange={(e) => onChange({ ...data, task: e.target.value })}
-          disabled={disabled || data.done}
+          disabled={disabled || data.done || committed}
           placeholder={domainConfig.placeholder}
           style={{
             background: 'none',
@@ -89,7 +90,7 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
             width: '100%',
             touchAction: 'auto',
             userSelect: 'auto',
-            cursor: disabled || data.done ? 'default' : 'text',
+            cursor: disabled || data.done || committed ? 'default' : 'text',
           }}
         />
       </div>

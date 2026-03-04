@@ -12,6 +12,7 @@ const defaultProps = {
   onComplete: vi.fn(),
   disabled: false,
   drifting: false,
+  committed: false,
 };
 
 describe('DomainCard', () => {

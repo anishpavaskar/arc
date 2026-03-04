@@ -25,6 +25,7 @@ describe('loadDay', () => {
     const data = {
       date: '2026-03-03',
       intent: 'Ship it',
+      committed: false,
       body: { task: 'Run', done: true },
       build: { task: 'Code', done: false },
       exposure: { task: 'Call', done: true },
@@ -51,6 +52,7 @@ describe('saveDay', () => {
     const data = {
       date: '2026-03-03',
       intent: 'Focus',
+      committed: false,
       body: { task: 'Gym', done: true },
       build: { task: 'Ship', done: false },
       exposure: { task: 'Dinner', done: false },
@@ -63,6 +65,7 @@ describe('saveDay', () => {
     const data = {
       date: '2026-01-15',
       intent: 'Test',
+      committed: false,
       body: { task: 'A', done: true },
       build: { task: 'B', done: true },
       exposure: { task: 'C', done: false },
@@ -81,6 +84,7 @@ describe('dayExists', () => {
     localStorage.setItem('arc-2026-03-03', JSON.stringify({
       date: '2026-03-03',
       intent: '',
+      committed: false,
       body: { task: '', done: false },
       build: { task: '', done: false },
       exposure: { task: '', done: false },
@@ -92,6 +96,7 @@ describe('dayExists', () => {
     saveDay({
       date: '2026-03-03',
       intent: '',
+      committed: false,
       body: { task: '', done: false },
       build: { task: '', done: false },
       exposure: { task: '', done: false },
@@ -156,6 +161,7 @@ describe('defaultDay', () => {
     expect(day).toEqual({
       date: '2026-03-03',
       intent: '',
+      committed: false,
       body: { task: '', done: false },
       build: { task: '', done: false },
       exposure: { task: '', done: false },

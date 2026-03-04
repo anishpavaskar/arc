@@ -7,6 +7,8 @@ const defaultProps = {
   intent: '',
   onChange: vi.fn(),
   disabled: false,
+  committed: false,
+  onCommit: vi.fn(),
 };
 
 describe('DailyIntent', () => {

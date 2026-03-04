@@ -5,6 +5,7 @@ function makeDay(dateStr: string, body: boolean, build: boolean, exposure: boole
   return {
     date: dateStr,
     intent: '',
+    committed: false,
     body: { task: 'b', done: body },
     build: { task: 'b', done: build },
     exposure: { task: 'e', done: exposure },

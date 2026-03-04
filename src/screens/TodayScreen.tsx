@@ -148,6 +148,8 @@ export default function TodayScreen() {
         intent={dayData.intent}
         onChange={(intent) => update({ intent })}
         disabled={!isToday}
+        committed={dayData.committed ?? false}
+        onCommit={() => update({ committed: true })}
       />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--card-gap)' }}>
         {DOMAINS.map((domain) => (
@@ -162,6 +164,7 @@ export default function TodayScreen() {
             }}
             disabled={!isToday}
             drifting={isToday && drift[domain.key]}
+            committed={dayData.committed ?? false}
           />
         ))}
       </div>

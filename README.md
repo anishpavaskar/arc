@@ -2,7 +2,7 @@
 
 Personal velocity system.
 
-**[Live app](https://arc-jet.vercel.app)** · **[MVP spec](./Arc_MVP.docx)**
+**[Live app](https://arc-jet.vercel.app)** · **[MVP spec](./ARC_MVP.docx)**
 
 ---
 

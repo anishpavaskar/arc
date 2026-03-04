@@ -580,7 +580,10 @@ COLORS:
   --border-inactive: #333333    (card borders, ghost bars, empty states)
 
 TYPOGRAPHY:
-  Font family:    "DM Sans" (body), "Instrument Sans" (labels/headings)
+  Font family:    "DM Sans" (body text, task inputs, intent)
+                  "Instrument Sans" (labels, headings, status, date header)
+  NOTE:           Both are Google Fonts (no licensing issues). The spec's earlier
+                  mention of "SF Pro Display, Satoshi" is superseded by these choices.
   Labels:         uppercase, letter-spacing 0.1em, text-secondary
   Body:           16px, text-primary
   Status label:   24–32px, bold, uppercase
