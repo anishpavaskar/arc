@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>ARC — Ethos</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Instrument+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0A0A0A;
+      --surface: #1A1A1A;
+      --gold: #C9A84C;
+      --gold-muted: rgba(201, 168, 76, 0.5);
+      --gold-dim: rgba(201, 168, 76, 0.15);
+      --text: #F5F5F0;
+      --text-secondary: #888888;
+      --border: #333333;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 24px;
+      padding-bottom: 80px;
+    }
+
+    /* Header */
+    .header {
+      padding-top: calc(env(safe-area-inset-top, 20px) + 48px);
+      padding-bottom: 32px;
+    }
+
+    .wordmark {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .page-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .gold-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 40px 0;
+    }
+
+    .gold-rule-full {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+    }
+
+    /* Sections */
+    .section { margin-bottom: 48px; }
+
+    .section-label {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    p { margin-bottom: 14px; color: var(--text-secondary); font-size: 15px; }
+
+    .quote {
+      font-style: italic;
+      color: var(--gold);
+      font-size: 18px;
+      line-height: 1.5;
+      padding: 24px 0;
+      text-align: center;
+    }
+
+    /* Steps */
+    .step {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 12px;
+      border-left: 3px solid var(--border);
+      transition: border-color 0.2s ease;
+    }
+
+    .step:hover { border-left-color: var(--gold); }
+
+    .step-number {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .step-title {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .step-time {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .step-body { color: var(--text-secondary); font-size: 14px; margin-bottom: 8px; }
+
+    .step-hint {
+      font-size: 13px;
+      color: var(--text-secondary);
+      opacity: 0.7;
+      padding-left: 12px;
+      border-left: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    /* Domain cards */
+    .domain-card {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--gold);
+    }
+
+    .domain-name {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .domain-desc { color: var(--text-secondary); font-size: 14px; margin-bottom: 0; }
+
+    /* Velocity states */
+    .velocity-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .velocity-row:last-child { border-bottom: none; }
+
+    .velocity-label {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      min-width: 140px;
+      flex-shrink: 0;
+    }
+
+    .velocity-range { font-size: 13px; color: var(--text-secondary); min-width: 100px; }
+    .velocity-desc { font-size: 13px; color: var(--text-secondary); }
+
+    .v-locked { color: var(--gold); }
+    .v-moving { color: var(--text); }
+    .v-drag { color: var(--text-secondary); }
+    .v-flatline { color: var(--border); }
+
+    /* Rules */
+    .rule { margin-bottom: 20px; }
+
+    .rule-title {
+      font-weight: 700;
+      color: var(--text);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .rule-body { color: var(--text-secondary); font-size: 14px; margin-bottom: 0; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 48px 0 32px;
+    }
+
+    .footer-quote {
+      font-style: italic;
+      color: var(--gold);
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .footer-cta {
+      font-weight: 700;
+      color: var(--text);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .footer-link {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      opacity: 0.6;
+    }
+
+    .footer-link:hover { opacity: 1; }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 32px;
+      opacity: 0.6;
+    }
+
+    .back-link:hover { opacity: 1; color: var(--gold); }
+
+    /* Fade in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .fade-in:nth-child(1) { animation-delay: 0.05s; }
+    .fade-in:nth-child(2) { animation-delay: 0.1s; }
+    .fade-in:nth-child(3) { animation-delay: 0.15s; }
+    .fade-in:nth-child(4) { animation-delay: 0.2s; }
+    .fade-in:nth-child(5) { animation-delay: 0.25s; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <a href="/" class="back-link">← Back to Arc</a>
+      <div class="wordmark fade-in">ARC</div>
+      <h1 class="page-title fade-in">Ethos</h1>
+      <p class="subtitle fade-in">A personal velocity system. Three domains. One question. Every day.</p>
+    </div>
+
+    <div class="gold-rule"></div>
+
+    <!-- WHY ARC -->
+    <div class="section">
+      <div class="section-label">Why Arc</div>
+      <p>An arc is a trajectory. Not a line — that's too rigid. Not a circle — that's going nowhere. An arc is movement with curvature. Direction that reveals itself over time.</p>
+      <p>You don't see the full arc until you've lived enough days. But each day, you feel whether you're bending toward something or drifting away from it.</p>
+      <p>Arc doesn't track habits. It doesn't count streaks. It asks one question and gives you an honest answer based on your own behavior. That's it.</p>
+      <div class="quote">"The app should feel like a sharp tool, not a friendly companion."</div>
+    </div>
+
+    <div class="gold-rule-full"></div>
+
+    <!-- THE THREE DOMAINS -->
+    <div class="section">
+      <div class="section-label">The Three Domains</div>
+      <p>Your life runs on three channels. Every day, you do one thing in each. Not everything. One thing.</p>
+
+      <div style="margin-top: 20px;">
+        <div class="domain-card">
+          <div class="domain-name">Body</div>
+          <p class="domain-desc">Physical. Movement. Health. Did you show up for your body today? A gym session, a run, a long walk. Not a stretch while watching TV — something deliberate.</p>
+        </div>
+
+        <div class="domain-card">
+          <div class="domain-name">Build</div>
+          <p class="domain-desc">Output. Creation. Progress on the thing that matters. Shipped code, wrote the proposal, had the hard conversation at work. The thing that moves your craft forward by one unit.</p>
+        </div>
+
+        <div class="domain-card">
+          <div class="domain-name">Exposure</div>
+          <p class="domain-desc">Social. Connection. Putting yourself in rooms. Dinner with a friend, networking call, community event. The channel most high-performers neglect — and the one that compounds the hardest.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-rule-full"></div>
+
+    <!-- HOW TO USE -->
+    <div class="section">
+      <div class="section-label">How to Use Arc</div>
+      <p>Four touchpoints. That's your entire relationship with this app.</p>
+
+      <div style="margin-top: 20px;">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-title">Morning Commit</div>
+          <div class="step-time">Under 60 seconds. Every day.</div>
+          <p class="step-body">Open Arc. Type your intent — one sentence that frames the day. Fill in one task per domain. Close the app.</p>
+          <div class="step-hint">Your intent is your contract. The three tasks are your evidence.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-title">During the Day</div>
+          <div class="step-time">Under 10 seconds. As tasks complete.</div>
+          <p class="step-body">Open Arc. Swipe the completed card. Gold fill. Card locks. Close the app. The app never comes to you — you go to it.</p>
+          <div class="step-hint">Made a mistake? Long-press a completed card to undo.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-title">Midnight</div>
+          <div class="step-time">Automatic. You do nothing.</div>
+          <p class="step-body">Day freezes. Whatever's done is done. Whatever's not is not. Cards become read-only. Tomorrow starts blank. No retroactive edits.</p>
+          <div class="step-hint">Missed a day entirely? That's a ghost day. The chart shows the gap.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">04</div>
+          <div class="step-title">Sunday Reflection</div>
+          <div class="step-time">Once a week. The Velocity tab.</div>
+          <p class="step-body">Tap Velocity. See your Monday through Sunday charted. See which domains are strong, which are lagging. See your status label. Adjust next week.</p>
+          <div class="step-hint">LOCKED IN / MOVING / DRAG DETECTED / FLATLINE — the label tells you the truth.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-rule-full"></div>
+
+    <!-- VELOCITY STATES -->
+    <div class="section">
+      <div class="section-label">Velocity States</div>
+      <p>Your weekly average determines your state. No spin. No encouragement. Just signal.</p>
+
+      <div style="margin-top: 20px;">
+        <div class="velocity-row">
+          <span class="velocity-label v-locked">Locked In</span>
+          <span class="velocity-range">2.5 – 3.0 / day</span>
+          <span class="velocity-desc">Executing across all three. Keep going.</span>
+        </div>
+        <div class="velocity-row">
+          <span class="velocity-label v-moving">Moving</span>
+          <span class="velocity-range">1.5 – 2.4 / day</span>
+          <span class="velocity-desc">In motion. One domain is lagging. Find it.</span>
+        </div>
+        <div class="velocity-row">
+          <span class="velocity-label v-drag">Drag Detected</span>
+          <span class="velocity-range">0.5 – 1.4 / day</span>
+          <span class="velocity-desc">Friction is winning. Something needs to change.</span>
+        </div>
+        <div class="velocity-row">
+          <span class="velocity-label v-flatline">Flatline</span>
+          <span class="velocity-range">0.0 – 0.4 / day</span>
+          <span class="velocity-desc">Full stop. Start with one card tomorrow.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-rule-full"></div>
+
+    <!-- THE RULES -->
+    <div class="section">
+      <div class="section-label">The Rules</div>
+
+      <div class="rule">
+        <div class="rule-title">Missed days are data.</div>
+        <p class="rule-body">Not failure. The chart shows gaps because gaps are real. Don't fill them in. Learn from them.</p>
+      </div>
+
+      <div class="rule">
+        <div class="rule-title">No retroactive edits.</div>
+        <p class="rule-body">If you didn't open the app, it's a ghost day. If you opened it but didn't finish, that's present but incomplete. Both are honest.</p>
+      </div>
+
+      <div class="rule">
+        <div class="rule-title">The app doesn't come to you.</div>
+        <p class="rule-body">No notifications. No reminders. No nudges. You open it because you choose to. That's the point.</p>
+      </div>
+
+      <div class="rule">
+        <div class="rule-title">Completing is easy. Uncommitting is hard.</div>
+        <p class="rule-body">Swipe to mark done. Long-press to undo. The friction is intentional — commitments should cost something to break.</p>
+      </div>
+
+      <div class="rule">
+        <div class="rule-title">One task per domain.</div>
+        <p class="rule-body">Not three. Not a sub-list. One measurable thing. If you can't name it in one line, you haven't decided what matters today.</p>
+      </div>
+
+      <div class="rule">
+        <div class="rule-title">Features are earned.</div>
+        <p class="rule-body">The app grows as you do. Prove the simple version works first.</p>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="gold-rule" style="margin: 0 auto 32px;"></div>
+      <div class="footer-quote">"Am I moving, or am I drifting?"</div>
+      <div class="footer-cta">Open the app. Answer the question. Move.</div>
+      <a href="/" class="footer-link">arc-jet.vercel.app</a>
+    </div>
+
+  </div>
+</body>
+</html>
