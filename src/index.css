@@ -45,3 +45,9 @@ body {
   justify-content: center;
   min-height: 100dvh;
 }
+
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+  touch-action: manipulation;
+}

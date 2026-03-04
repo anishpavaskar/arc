@@ -95,6 +95,9 @@ export default function DailyIntent({ intent, onChange, disabled, committed, onC
     <div ref={elRef} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <input
         type="text"
+        inputMode="text"
+        enterKeyHint="done"
+        autoComplete="off"
         value={intent}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled || committed}

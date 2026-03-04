@@ -75,6 +75,9 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
         </span>
         <input
           type="text"
+          inputMode="text"
+          enterKeyHint="done"
+          autoComplete="off"
           value={data.task}
           onChange={(e) => onChange({ ...data, task: e.target.value })}
           disabled={disabled || data.done || committed}
