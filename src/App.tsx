@@ -3,6 +3,7 @@ import type { Screen } from './types';
 import BottomNav from './components/BottomNav';
 import TodayScreen from './screens/TodayScreen';
 import VelocityScreen from './screens/VelocityScreen';
+import OnboardingOverlay from './components/OnboardingOverlay';
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('today');
@@ -32,6 +33,7 @@ export default function App() {
         </a>
       </div>
       <BottomNav screen={screen} onScreenChange={setScreen} />
+      <OnboardingOverlay />
     </div>
   );
 }
