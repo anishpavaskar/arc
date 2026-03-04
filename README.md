@@ -1,19 +1,17 @@
 # ARC
 
-A personal velocity system. Two screens, local storage, no backend.
+Personal velocity system.
 
-**[Read the MVP Spec (PDF)](./arc-mvp-spec.pdf)**
+**[Live app](https://arc-jet.vercel.app)** · **[MVP spec](./Arc_MVP.docx)**
 
 ---
 
-### What it does
-
-You use it twice a day:
+Two screens, local storage, no backend. You use it twice a day:
 
 - **Morning** — set one task per domain (Body, Build, Exposure)
-- **Evening** — swipe right to mark complete
+- **Evening** — swipe to mark complete
 
-Velocity tab shows your 7-day trajectory.
+The Velocity tab shows your weekly trajectory.
 
 ### Run locally
 
@@ -24,4 +22,4 @@ npm run dev
 
 ### Stack
 
-React + TypeScript, Vite, Tailwind CSS, Recharts, localStorage, PWA
+React, TypeScript, Vite, Recharts, Tailwind CSS, localStorage, PWA
