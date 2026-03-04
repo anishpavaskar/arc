@@ -1,0 +1,254 @@
+ARC — Features v1.1 MVP Checklist
+===================================
+
+21 total features. 14 built. 7 remaining.
+Claude Code: verify each feature against the codebase. Mark PASS or FAIL.
+
+===================================
+BUILT FEATURES (14) — Verify these work
+===================================
+
+F1: ARC WORDMARK
+  - Gold #C9A84C wordmark top-left of Today screen
+  - Instrument Sans, small caps, letter-spacing 0.2em
+  - File: TodayScreen.tsx
+  - Status: [ ]
+
+F2: DATE HEADER + NAVIGATION
+  - Formatted date display (e.g. "TUESDAY, MAR 3")
+  - Left/right chevron arrows navigate past days
+  - Right arrow hidden when on today
+  - Past days show read-only indicator
+  - Cannot navigate to future dates
+  - File: components/DateHeader.tsx
+  - Status: [ ]
+
+F4: DAILY INTENT
+  - Single-line text input
+  - Placeholder: "What is today's intent?"
+  - Bottom border only styling
+  - Disabled on past days
+  - Persists to localStorage on every keystroke
+  - File: components/DailyIntent.tsx
+  - Status: [ ]
+
+F5: DOMAIN CARDS (BODY / BUILD / EXPOSURE)
+  - Three cards mapped from DOMAINS config array
+  - Surface background #1A1A1A, rounded corners, 16px padding
+  - 3px gold left border
+  - Domain label: uppercase, secondary text color
+  - Task text input with domain-specific placeholder
+  - File: components/DomainCard.tsx, config/domains.ts
+  - Status: [ ]
+
+F6: SWIPE-TO-COMPLETE
+  - useSwipe hook detects horizontal drag
+  - 10px dead zone before gesture activates
+  - 40% of card width threshold to trigger
+  - Card follows finger/mouse during drag
+  - On complete: gold tint bg (rgba 201,168,76,0.15), gold left border, gold checkmark, gold label
+  - 200ms ease snap animation
+  - Vertical scroll not hijacked
+  - Task input still tappable without triggering swipe
+  - File: hooks/useSwipe.ts, components/DomainCard.tsx
+  - Status: [ ]
+
+F9: READ-ONLY PAST DAYS
+  - All inputs disabled on past days (intent + 3 tasks + 3 toggles)
+  - Opacity 0.5 on past day cards
+  - pointerEvents none
+  - No retroactive check-offs
+  - File: screens/TodayScreen.tsx, components/DomainCard.tsx
+  - Status: [ ]
+
+F10: MIDNIGHT ROLLOVER
+  - useDateRollover hook with dual detection
+  - 60-second interval check (only when document visible)
+  - visibilitychange listener as backup
+  - When date flips: selectedDate snaps to new today
+  - Previous day becomes permanently read-only
+  - File: hooks/useDateRollover.ts
+  - Status: [ ]
+
+F12: VELOCITY STATUS LABEL
+  - Large centered text, 28px bold, Instrument Sans
+  - LOCKED IN = #C9A84C (gold)
+  - MOVING = #F5F5F0 (white)
+  - DRAG DETECTED = #888888 (gray)
+  - FLATLINE = #333333 (dark gray)
+  - Thresholds: 2.5-3.0 / 1.5-2.4 / 0.5-1.4 / 0-0.4
+  - Weekly average displayed below as "X.X avg"
+  - File: components/StatusLabel.tsx
+  - Status: [ ]
+
+F14: WEEKLY VELOCITY CHART
+  - Recharts BarChart with ResponsiveContainer
+  - Per-bar coloring via Cell components
+  - X-axis: day labels in #888 Instrument Sans
+  - No Y-axis, no grid, no tooltip, no legend
+  - 200px height
+  - Score 3 = #C9A84C, 2 = #C9A84C at 60%, 1 = #333, 0 = outlined stub
+  - File: components/VelocityChart.tsx
+  - Status: [ ]
+
+F17: PER-DOMAIN BREAKDOWN
+  - Three horizontal rows, one per domain from DOMAINS config
+  - Domain label left, X/7 count right
+  - 8px rounded progress bar with gold fill
+  - Background #1A1A1A
+  - File: components/DomainBreakdown.tsx
+  - Status: [ ]
+
+F18: WEEKLY AVERAGE DISPLAY
+  - Numeric average below status label
+  - Secondary text color
+  - Formatted to one decimal place
+  - File: components/StatusLabel.tsx
+  - Status: [ ]
+
+F19: LOCALSTORAGE PERSISTENCE
+  - loadDay(dateStr) reads and parses, returns DayData or default empty
+  - saveDay(data) writes stringified DayData
+  - getDateKey(date) formats Date to YYYY-MM-DD
+  - Key pattern: arc-YYYY-MM-DD
+  - Try-catch wrapped for corrupted data
+  - Immediate write on every state change
+  - File: utils/storage.ts
+  - Status: [ ]
+
+F20: BOTTOM NAVIGATION
+  - Fixed bottom bar, 56px height
+  - Two tabs: Today and Velocity
+  - Active tab: #C9A84C gold
+  - Inactive tab: #888888 gray
+  - 44px minimum tap targets
+  - Safe area padding for notched phones
+  - File: components/BottomNav.tsx
+  - Status: [ ]
+
+F21: PWA
+  - manifest.json with name "Arc", theme_color #0A0A0A, display standalone
+  - Icons: 192x192 and 512x512
+  - Service worker with cache-first strategy
+  - Meta tags: theme-color, apple-mobile-web-app-capable
+  - Registered in main.tsx
+  - File: public/manifest.json, public/sw.js, main.tsx
+  - Status: [ ]
+
+===================================
+NEW FEATURES TO BUILD (7) — Implement these
+===================================
+
+F3: 3-DAY MOMENTUM BARS
+  - Three small vertical bars, top-right of Today screen
+  - Shows last 3 days (not including today)
+  - Each bar: ~6px wide, ~32px tall, 4px gap between
+  - 3/3 done = full gold fill
+  - 2/3 done = two-thirds gold fill from bottom
+  - 1/3 done = one-third gold fill from bottom
+  - 0/3 done but key exists (present) = dim gold outline (#C9A84C at 30%)
+  - No key (ghost day) = dark gray #333333, barely visible
+  - Purpose: peripheral rearview mirror of recent momentum
+  - File to create: components/MomentumBars.tsx
+  - Status: [ ]
+
+F7: HOLD-TO-UNDO
+  - New useLongPress hook
+  - 500ms press-and-hold on completed card triggers undo
+  - Timer starts on touchstart/mousedown
+  - Cancels if finger lifts before 500ms
+  - Cancels if finger moves more than 10px
+  - Optional: navigator.vibrate(50) if available
+  - Only active on completed cards (no-op on incomplete)
+  - Disabled on past days
+  - Replaces current swipe-to-undo behavior
+  - When undone: gold fades out, task text becomes editable again
+  - File to create: hooks/useLongPress.ts
+  - File to update: components/DomainCard.tsx
+  - Status: [ ]
+
+F8: DRIFT SIGNAL
+  - For each domain, check last 3 days (not including today)
+  - If domain.done === false (or ghost day) for all 3: domain is drifting
+  - Drifting card renders at ~60% opacity on ALL elements (label, input, border)
+  - No notification, no warning text, no badge
+  - Just visual decay — the interface reflects behavior
+  - Clears immediately when domain is completed today
+  - Needs 3 consecutive missed days to trigger
+  - Fewer than 3 prior days = no drift
+  - File to update: screens/TodayScreen.tsx, components/DomainCard.tsx (add drifting prop)
+  - Status: [ ]
+
+F11: GHOST DAY DETECTION
+  - loadDay returns NULL for missing keys (not default empty DayData)
+  - New function: dayExists(dateStr) returns boolean
+  - Ghost day = no localStorage key exists (never opened app)
+  - Present day = key exists, all done: false
+  - Active day = key exists, 1+ done: true
+  - TodayScreen only creates/saves DayData on FIRST user interaction
+  - Opening the app and doing nothing = stays ghost
+  - File to update: utils/storage.ts
+  - File to update: screens/TodayScreen.tsx
+  - Status: [ ]
+
+F13: EARLY-WEEK STATUS DIMMING
+  - Monday through Wednesday (dayOfWeek 1-3):
+    Status text renders in #888888 regardless of actual tier
+  - Thursday through Sunday (dayOfWeek 4-7):
+    Status renders in full designated color (gold/white/gray/dark gray)
+  - WeeklyData must include dayOfWeek field
+  - No tooltip or explanation — quietly becomes more confident
+  - File to update: components/StatusLabel.tsx, utils/velocity.ts, types/index.ts
+  - Status: [ ]
+
+F15: MON-SUN FIXED WEEK
+  - Chart shows current Monday through Sunday (not rolling 7 days)
+  - New utility: getMonday(date) returns Monday of that week
+  - Only include days up to and including today
+  - Future days = empty space in chart (not rendered)
+  - Ghost days (null from loadDay) excluded from average calculation
+  - Average denominator = non-ghost days only
+  - If all days ghost, average = 0
+  - File to update: utils/velocity.ts, utils/dates.ts
+  - File to update: components/VelocityChart.tsx
+  - Status: [ ]
+
+F16: PROPORTIONAL THIRD-FILL BARS
+  - Bars fill in thirds from bottom (not solid blocks)
+  - 1/3 done = bottom third gold, top two-thirds empty
+  - 2/3 done = bottom two-thirds gold, top third empty
+  - 3/3 done = full gold
+  - Ghost day = gap (no bar at all)
+  - Present-but-incomplete = dim gold outline (#C9A84C at 30%)
+  - Same visual language for BOTH momentum bars (F3) and velocity chart (F14)
+  - File to update: components/VelocityChart.tsx, components/MomentumBars.tsx
+  - Status: [ ]
+
+===================================
+FUTURE EARNED FEATURES (not in v1.1 scope)
+===================================
+
+- Task weighting (MAINTAIN/ADVANCE/EXPAND) — unlock: 3 weeks daily use
+- Quarterly goal view — unlock: 3 consecutive weekly reviews
+- Eliminate goal tracking — unlock: 2 weeks daily use
+- Push notifications — unlock: 4 weeks daily use
+- Data export (CSV/JSON) — unlock: any time
+- Peer accountability pod — unlock: 8 weeks + 3 people
+- Native mobile app — unlock: 12 weeks consistent usage
+
+===================================
+TEST COVERAGE
+===================================
+
+Existing: 52 tests across 8 files (all passing)
+After implementing F3-F16, update tests to cover:
+- [ ] loadDay returning null for ghost days
+- [ ] dayExists utility
+- [ ] Ghost/present/active day state detection
+- [ ] Mon-Sun week boundaries (getMonday)
+- [ ] Drift detection logic (3 consecutive misses)
+- [ ] Early-week dimming (dayOfWeek check)
+- [ ] Hold-to-undo (useLongPress hook)
+- [ ] Proportional bar fill calculations
+- [ ] MomentumBars with ghost/present/active input
+- [ ] Velocity computation excluding ghost days from average

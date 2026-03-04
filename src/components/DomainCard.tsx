@@ -1,25 +1,47 @@
+import { useCallback } from 'react';
 import type { DomainData } from '../types';
 import type { DomainConfig } from '../config/domains';
 import { useSwipe } from '../hooks/useSwipe';
+import { useLongPress } from '../hooks/useLongPress';
 
 interface DomainCardProps {
   domainConfig: DomainConfig;
   data: DomainData;
   onChange: (data: DomainData) => void;
-  onComplete: () => void;
+  onComplete: (done: boolean) => void;
   disabled: boolean;
+  drifting: boolean;
 }
 
-export default function DomainCard({ domainConfig, data, onChange, onComplete, disabled }: DomainCardProps) {
-  const cardRef = useSwipe({
-    onSwipeComplete: onComplete,
+export default function DomainCard({ domainConfig, data, onChange, onComplete, disabled, drifting }: DomainCardProps) {
+  const swipeRef = useSwipe({
+    onComplete,
     disabled,
     done: data.done,
   });
 
+  const longPressRef = useLongPress({
+    onUndo: () => onComplete(false),
+    disabled,
+    done: data.done,
+  });
+
+  // Merge both refs into a single callback ref
+  const mergedRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      // Assign to both internal refs
+      (swipeRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      longPressRef.current = node;
+    },
+    [swipeRef, longPressRef],
+  );
+
+  // Drifting dims the card but only when not completed
+  const isDrifting = drifting && !data.done;
+
   return (
     <div
-      ref={cardRef}
+      ref={mergedRef}
       style={{
         backgroundColor: data.done ? 'var(--gold-tint)' : 'var(--surface)',
         borderRadius: 12,
@@ -28,10 +50,12 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
         display: 'flex',
         alignItems: 'center',
         gap: 12,
-        opacity: disabled ? 0.5 : 1,
-        transition: 'background-color 200ms ease, border-color 200ms ease',
+        opacity: disabled ? 0.5 : isDrifting ? 0.6 : 1,
+        pointerEvents: disabled ? 'none' : 'auto',
+        transition: 'background-color 200ms ease, border-color 200ms ease, opacity 200ms ease',
         touchAction: 'pan-y',
         userSelect: 'none',
+        cursor: disabled ? 'default' : 'grab',
       }}
     >
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -52,7 +76,7 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
           type="text"
           value={data.task}
           onChange={(e) => onChange({ ...data, task: e.target.value })}
-          disabled={disabled}
+          disabled={disabled || data.done}
           placeholder={domainConfig.placeholder}
           style={{
             background: 'none',
@@ -65,6 +89,7 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
             width: '100%',
             touchAction: 'auto',
             userSelect: 'auto',
+            cursor: disabled || data.done ? 'default' : 'text',
           }}
         />
       </div>

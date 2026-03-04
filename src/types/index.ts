@@ -17,15 +17,20 @@ export type Screen = 'today' | 'velocity';
 
 export type VelocityStatus = 'LOCKED IN' | 'MOVING' | 'DRAG DETECTED' | 'FLATLINE';
 
+/** Three possible day states */
+export type DayState = 'ghost' | 'present' | 'active';
+
 export interface DayScore {
   date: string;          // "YYYY-MM-DD"
   label: string;         // "Mon", "Tue", etc.
-  score: number;         // 0–3
+  score: number;         // 0-3
+  state: DayState;       // ghost, present, or active
 }
 
 export interface WeeklyData {
-  days: DayScore[];
-  average: number;
+  days: DayScore[];       // Always Mon-Sun (7 entries, future days excluded)
+  average: number;        // Based only on non-ghost days
   status: VelocityStatus;
-  domainCounts: Record<DomainKey, number>;  // each 0–7
+  domainCounts: Record<DomainKey, number>;  // each 0-7
+  dayOfWeek: number;      // 1=Mon, 7=Sun - for early-week dimming logic
 }

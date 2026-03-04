@@ -3,14 +3,22 @@ import { DOMAINS } from '../config/domains';
 
 interface DomainBreakdownProps {
   domainCounts: Record<DomainKey, number>;
+  nonGhostDays: number;
 }
 
-export default function DomainBreakdown({ domainCounts }: DomainBreakdownProps) {
+/**
+ * Per-domain progress bars.
+ * Denominator = non-ghost days (not always 7).
+ * Display as "X/Y" where Y = non-ghost days.
+ */
+export default function DomainBreakdown({ domainCounts, nonGhostDays }: DomainBreakdownProps) {
+  const denominator = Math.max(nonGhostDays, 1); // avoid division by zero
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {DOMAINS.map((domain) => {
         const count = domainCounts[domain.key];
-        const pct = (count / 7) * 100;
+        const pct = (count / denominator) * 100;
 
         return (
           <div key={domain.key} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -34,7 +42,7 @@ export default function DomainBreakdown({ domainCounts }: DomainBreakdownProps) 
                   color: 'var(--text-secondary)',
                 }}
               >
-                {count}/7
+                {count}/{nonGhostDays}
               </span>
             </div>
             <div
@@ -48,7 +56,7 @@ export default function DomainBreakdown({ domainCounts }: DomainBreakdownProps) 
             >
               <div
                 style={{
-                  width: `${pct}%`,
+                  width: `${Math.min(pct, 100)}%`,
                   height: '100%',
                   backgroundColor: 'var(--gold)',
                   borderRadius: 4,
