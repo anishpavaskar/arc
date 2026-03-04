@@ -122,8 +122,8 @@ export default function TodayScreen() {
   }
 
   return (
-    <div style={{ padding: 'var(--page-padding)', display: 'flex', flexDirection: 'column', minHeight: 'calc(100dvh - var(--nav-height) - env(safe-area-inset-top, 10px) - env(safe-area-inset-bottom, 0px))' }}>
-      {/* Top row: ARC label + MomentumBars — pinned at top */}
+    <div style={{ padding: 'var(--page-padding)', display: 'flex', flexDirection: 'column' }}>
+      {/* Top row: ARC label + MomentumBars */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 8, paddingBottom: 16 }}>
         <span
           style={{
@@ -139,13 +139,14 @@ export default function TodayScreen() {
         </span>
         <MomentumBars last3Days={last3Days} />
       </div>
-      {/* Centered content group */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 'var(--section-gap)' }}>
+      <div style={{ marginBottom: 12 }}>
         <DateHeader
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
           isToday={isToday}
         />
+      </div>
+      <div style={{ marginBottom: 16 }}>
         <DailyIntent
           intent={dayData.intent}
           onChange={(intent) => update({ intent })}
@@ -153,23 +154,23 @@ export default function TodayScreen() {
           committed={dayData.committed ?? false}
           onCommit={() => update({ committed: true })}
         />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {DOMAINS.map((domain) => (
-            <DomainCard
-              key={domain.key}
-              domainConfig={domain}
-              data={dayData[domain.key]}
-              onChange={(data) => update({ [domain.key]: data } as Partial<DayData>)}
-              onComplete={(done) => {
-                const current = dayData[domain.key];
-                update({ [domain.key]: { ...current, done } } as Partial<DayData>);
-              }}
-              disabled={!isToday}
-              drifting={isToday && drift[domain.key]}
-              committed={dayData.committed ?? false}
-            />
-          ))}
-        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {DOMAINS.map((domain) => (
+          <DomainCard
+            key={domain.key}
+            domainConfig={domain}
+            data={dayData[domain.key]}
+            onChange={(data) => update({ [domain.key]: data } as Partial<DayData>)}
+            onComplete={(done) => {
+              const current = dayData[domain.key];
+              update({ [domain.key]: { ...current, done } } as Partial<DayData>);
+            }}
+            disabled={!isToday}
+            drifting={isToday && drift[domain.key]}
+            committed={dayData.committed ?? false}
+          />
+        ))}
       </div>
     </div>
   );

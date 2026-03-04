@@ -47,8 +47,7 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
         backgroundColor: data.done ? 'rgba(201,168,76,0.12)' : 'var(--surface)',
         borderRadius: 12,
         borderLeft: `3px solid ${data.done ? 'var(--gold)' : 'var(--border-inactive)'}`,
-        padding: '24px 20px',
-        minHeight: 90,
+        padding: '14px 16px',
         display: 'flex',
         alignItems: 'center',
         gap: 12,
@@ -56,7 +55,6 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
         pointerEvents: disabled ? 'none' : 'auto',
         transition: 'background-color 200ms ease, border-color 200ms ease, opacity 200ms ease',
         touchAction: 'pan-y',
-        userSelect: 'none',
         cursor: disabled ? 'default' : 'grab',
       }}
     >
@@ -88,7 +86,7 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
             border: 'none',
             outline: 'none',
             fontFamily: 'var(--font-body)',
-            fontSize: 17,
+            fontSize: 16,
             color: '#F5F5F0',
             padding: 0,
             width: '100%',
