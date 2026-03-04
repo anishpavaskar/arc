@@ -2,24 +2,22 @@
 
 Personal velocity system.
 
-**[Live app](https://arc-jet.vercel.app)** · **[MVP spec](./ARC_MVP.docx)**
+Three domains. One question. Every day.
+
+*"Am I moving, or am I drifting?"*
 
 ---
 
-Two screens, local storage, no backend. You use it twice a day:
+**[Live App](https://arc-jet.vercel.app)** · **[Ethos](./ETHOS.pdf)** · **[MVP Spec](./ARC_MVP.docx)**
 
-- **Morning** — set one task per domain (Body, Build, Exposure)
-- **Evening** — swipe to mark complete
+---
 
-The Velocity tab shows your weekly trajectory.
+## What it is
 
-### Run locally
+Two screens, no backend, no accounts. You use it twice a day: morning to commit, evening to verify. Sunday to reflect.
 
-```
-npm install
-npm run dev
-```
+**BODY** — Did you move today?
+**BUILD** — Did you make progress?
+**EXPOSURE** — Did you show up socially?
 
-### Stack
-
-React, TypeScript, Vite, Recharts, Tailwind CSS, localStorage, PWA
+Swipe to complete. Hold to undo. The graph tells you the truth.
