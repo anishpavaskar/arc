@@ -44,10 +44,11 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
     <div
       ref={mergedRef}
       style={{
-        backgroundColor: data.done ? 'var(--gold-tint)' : 'var(--surface)',
+        backgroundColor: data.done ? 'rgba(201,168,76,0.12)' : 'var(--surface)',
         borderRadius: 12,
         borderLeft: `3px solid ${data.done ? 'var(--gold)' : 'var(--border-inactive)'}`,
-        padding: 'var(--card-padding)',
+        padding: '24px 20px',
+        minHeight: 90,
         display: 'flex',
         alignItems: 'center',
         gap: 12,
@@ -63,11 +64,11 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
         <span
           style={{
             fontFamily: 'var(--font-label)',
-            fontSize: 11,
+            fontSize: 10,
             fontWeight: 600,
-            letterSpacing: '0.1em',
+            letterSpacing: '0.12em',
             textTransform: 'uppercase',
-            color: data.done ? 'var(--gold)' : 'var(--text-secondary)',
+            color: data.done ? 'var(--gold)' : '#666666',
             transition: 'color 200ms ease',
           }}
         >
@@ -87,8 +88,8 @@ export default function DomainCard({ domainConfig, data, onChange, onComplete, d
             border: 'none',
             outline: 'none',
             fontFamily: 'var(--font-body)',
-            fontSize: 16,
-            color: 'var(--text-primary)',
+            fontSize: 17,
+            color: '#F5F5F0',
             padding: 0,
             width: '100%',
             touchAction: 'auto',

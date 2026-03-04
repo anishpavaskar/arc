@@ -92,7 +92,9 @@ export default function DailyIntent({ intent, onChange, disabled, committed, onC
   }, [disabled, committed, clearTimer]);
 
   return (
-    <div ref={elRef} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div ref={elRef} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <span style={{ fontFamily: 'var(--font-label)', fontSize: 10, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: '#666666' }}>INTENT</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <input
         type="text"
         inputMode="text"
@@ -121,6 +123,7 @@ export default function DailyIntent({ intent, onChange, disabled, committed, onC
           <path d="M4 7V5a3 3 0 0 1 6 0v2" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       )}
+      </div>
     </div>
   );
 }

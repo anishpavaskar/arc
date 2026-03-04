@@ -42,7 +42,7 @@ export default function DateHeader({ selectedDate, onDateChange, isToday }: Date
         <span
           style={{
             fontFamily: 'var(--font-label)',
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: 600,
             letterSpacing: '0.15em',
             textTransform: 'uppercase',
