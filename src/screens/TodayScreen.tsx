@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import type { DayData, DayScore, DomainKey } from '../types';
+import type { DayData, DayScore, DomainKey, TaskWeight } from '../types';
 import { getToday } from '../utils/dates';
 import { loadDay, saveDay, defaultDay, getDateKey } from '../utils/storage';
 import { useDateRollover } from '../hooks/useDateRollover';
@@ -8,6 +8,7 @@ import DateHeader from '../components/DateHeader';
 import DailyIntent from '../components/DailyIntent';
 import DomainCard from '../components/DomainCard';
 import MomentumBars from '../components/MomentumBars';
+import WeightPopup from '../components/WeightPopup';
 
 /**
  * Ensures we always have a DayData to render.
@@ -94,6 +95,8 @@ function computeDrift(todayStr: string): Record<DomainKey, boolean> {
 export default function TodayScreen() {
   const [selectedDate, setSelectedDate] = useState(getToday);
   const [dayData, setDayData] = useState<DayData>(() => loadOrDefault(getToday()));
+  // Which domain is awaiting weight selection (popup visible)
+  const [pendingWeight, setPendingWeight] = useState<DomainKey | null>(null);
 
   const today = useDateRollover(
     useCallback((newToday: string) => {
@@ -119,6 +122,12 @@ export default function TodayScreen() {
       saveDay(next);
       return next;
     });
+  }
+
+  function handleWeightSelect(domainKey: DomainKey, weight: TaskWeight) {
+    const current = dayData[domainKey];
+    update({ [domainKey]: { ...current, done: true, weight } } as Partial<DayData>);
+    setPendingWeight(null);
   }
 
   return (
@@ -163,12 +172,21 @@ export default function TodayScreen() {
             data={dayData[domain.key]}
             onChange={(data) => update({ [domain.key]: data } as Partial<DayData>)}
             onComplete={(done) => {
-              const current = dayData[domain.key];
-              update({ [domain.key]: { ...current, done } } as Partial<DayData>);
+              if (done) {
+                // Show weight popup instead of immediately completing
+                setPendingWeight(domain.key);
+              } else {
+                // Undo — clear weight too
+                const current = dayData[domain.key];
+                update({ [domain.key]: { ...current, done: false, weight: null } } as Partial<DayData>);
+              }
             }}
             disabled={!isToday}
             drifting={isToday && drift[domain.key]}
             committed={dayData.committed ?? false}
+            popup={pendingWeight === domain.key ? (
+              <WeightPopup onSelect={(w) => handleWeightSelect(domain.key, w)} />
+            ) : undefined}
           />
         ))}
       </div>

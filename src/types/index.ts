@@ -1,6 +1,9 @@
+export type TaskWeight = 'maintain' | 'advance' | 'expand';
+
 export interface DomainData {
   task: string;
   done: boolean;
+  weight: TaskWeight | null;
 }
 
 export interface DayData {

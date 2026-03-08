@@ -26,9 +26,9 @@ describe('loadDay', () => {
       date: '2026-03-03',
       intent: 'Ship it',
       committed: false,
-      body: { task: 'Run', done: true },
-      build: { task: 'Code', done: false },
-      exposure: { task: 'Call', done: true },
+      body: { task: 'Run', done: true, weight: null },
+      build: { task: 'Code', done: false, weight: null },
+      exposure: { task: 'Call', done: true, weight: null },
     };
     localStorage.setItem('arc-2026-03-03', JSON.stringify(data));
     expect(loadDay('2026-03-03')).toEqual(data);
@@ -53,9 +53,9 @@ describe('saveDay', () => {
       date: '2026-03-03',
       intent: 'Focus',
       committed: false,
-      body: { task: 'Gym', done: true },
-      build: { task: 'Ship', done: false },
-      exposure: { task: 'Dinner', done: false },
+      body: { task: 'Gym', done: true, weight: null },
+      build: { task: 'Ship', done: false, weight: null },
+      exposure: { task: 'Dinner', done: false, weight: null },
     };
     saveDay(data);
     expect(localStorage.getItem('arc-2026-03-03')).toBe(JSON.stringify(data));
@@ -66,9 +66,9 @@ describe('saveDay', () => {
       date: '2026-01-15',
       intent: 'Test',
       committed: false,
-      body: { task: 'A', done: true },
-      build: { task: 'B', done: true },
-      exposure: { task: 'C', done: false },
+      body: { task: 'A', done: true, weight: null },
+      build: { task: 'B', done: true, weight: null },
+      exposure: { task: 'C', done: false, weight: null },
     };
     saveDay(data);
     expect(loadDay('2026-01-15')).toEqual(data);
@@ -85,9 +85,9 @@ describe('dayExists', () => {
       date: '2026-03-03',
       intent: '',
       committed: false,
-      body: { task: '', done: false },
-      build: { task: '', done: false },
-      exposure: { task: '', done: false },
+      body: { task: '', done: false, weight: null },
+      build: { task: '', done: false, weight: null },
+      exposure: { task: '', done: false, weight: null },
     }));
     expect(dayExists('2026-03-03')).toBe(true);
   });
@@ -97,9 +97,9 @@ describe('dayExists', () => {
       date: '2026-03-03',
       intent: '',
       committed: false,
-      body: { task: '', done: false },
-      build: { task: '', done: false },
-      exposure: { task: '', done: false },
+      body: { task: '', done: false, weight: null },
+      build: { task: '', done: false, weight: null },
+      exposure: { task: '', done: false, weight: null },
     });
     expect(dayExists('2026-03-03')).toBe(true);
   });
@@ -162,9 +162,9 @@ describe('defaultDay', () => {
       date: '2026-03-03',
       intent: '',
       committed: false,
-      body: { task: '', done: false },
-      build: { task: '', done: false },
-      exposure: { task: '', done: false },
+      body: { task: '', done: false, weight: null },
+      build: { task: '', done: false, weight: null },
+      exposure: { task: '', done: false, weight: null },
     });
   });
 });

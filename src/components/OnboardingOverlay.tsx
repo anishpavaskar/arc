@@ -100,6 +100,7 @@ export default function OnboardingOverlay() {
           <div style={{ height: 16 }} />
 
           <p style={{ margin: 0 }}>Swipe a card when the action is done.</p>
+          <p style={{ margin: 0 }}>Rate each task: <span style={{ color: '#888888' }}>MAINTAIN</span>, <span style={{ color: '#D4915C' }}>ADVANCE</span>, or <span style={{ color: '#C9A84C' }}>EXPAND</span>.</p>
           <p style={{ margin: 0 }}>Hold to undo.</p>
 
           <div style={{ height: 16 }} />
